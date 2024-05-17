@@ -1,0 +1,118 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_DATABASE: open5gs
+
+  amf:
+    image: gradiant/open5gs:2.7.0
+    command:
+      - open5gs-amfd
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+    restart : on-failure
+    ports:
+      - 38412:38412/sctp
+
+  ausf:
+    image: gradiant/open5gs:2.7.0
+    command:
+      - open5gs-ausfd
+    restart : on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  bsf:
+    image: gradiant/open5gs:2.7.0
+    command: open5gs-bsfd
+    restart : on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  nrf:
+    image: gradiant/open5gs:2.7.0
+    command: open5gs-nrfd
+    restart : on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  nssf:
+    image: gradiant/open5gs:2.7.0
+    command: open5gs-nssfd
+    restart : on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  pcf:
+    image: gradiant/open5gs:2.7.0
+    command:
+      - open5gs-pcfd
+    environment:
+      DB_URI: mongodb://mongo/open5gs
+    restart : on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  pcrf:
+    image: gradiant/open5gs:2.7.0
+    command: ["open5gs-pcrfd"]
+    environment:
+      DB_URI: mongodb://mongo/open5gs
+    restart: on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  scp:
+    image: gradiant/open5gs:2.7.0
+    command: open5gs-scpd
+    environment:
+      DB_URI: mongodb://mongo/open5gs
+    restart: on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  smf:
+    image: gradiant/open5gs:2.7.0
+    command: open5gs-smfd
+    restart : on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+    ports:
+      - 8805:8805/udp
+      - 2152:2152/udp
+
+  udm:
+    image: gradiant/open5gs:2.7.0
+    restart: on-failure
+    command:
+      - open5gs-udmd
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  udr:
+    image: gradiant/open5gs:2.7.0
+    restart: on-failure
+    environment:
+      DB_URI: mongodb://mongo/open5gs
+    command:
+      - open5gs-udrd
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+
+  webui:
+    image: gradiant/open5gs-webui:2.7.0
+    restart: on-failure
+    environment:
+      DB_URI: mongodb://mongo/open5gs
+      NODE_ENV: development
+    ports:
+      - 9999:9999
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.18.0.0/24"

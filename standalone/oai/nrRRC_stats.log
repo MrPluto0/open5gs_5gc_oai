@@ -1,0 +1,8 @@
+UE 0 CU UE ID 1 DU UE ID 62274 RNTI f342 random identity dadc4d4106000000:
+    last RRC activity: 606 seconds ago
+    RRC status connected
+    PDU session 0 ID 10 status established
+    associated DU:  (local/integrated CU-DU)
+
+1 connected DUs 
+[1] DU ID 3584 (gNB-OAI) integrated DU-CU: nrCellID 12345678, PCI 0

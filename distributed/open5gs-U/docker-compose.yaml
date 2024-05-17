@@ -1,0 +1,16 @@
+version: '3'
+services:
+  upf:
+    image: gradiant/open5gs:2.7.0
+    command:
+      - open5gs-upfd
+    cap_add:
+      - all
+    privileged: true
+    restart: on-failure
+    volumes:
+      - ./configs/:/opt/open5gs/etc/open5gs/
+    # ports:
+    #   - 8805:8805/udp
+    #   - 2152:2152
+    network_mode: host

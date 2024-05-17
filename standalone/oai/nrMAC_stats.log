@@ -1,0 +1,10 @@
+UE RNTI f342 CU-UE-ID 1 in-sync PH 0 dB PCMAX 0 dBm, average RSRP -44 (8 meas)
+UE f342: UL-RI 1, TPMI 0
+UE f342: dlsch_rounds 10404/1/0/0, dlsch_errors 0, pucch0_DTX 0, BLER 0.00000 MCS (0) 9
+UE f342: ulsch_rounds 10541/0/0/0, ulsch_errors 0, ulsch_DTX 0, BLER 0.00000 MCS (0) 9
+UE f342: MAC:    TX        1279892 RX        1182943 bytes
+UE f342: LCID 1: TX           1027 RX            328 bytes
+UE f342: LCID 2: TX              0 RX              0 bytes
+UE f342: LCID 4: TX           2529 RX           3541 bytes
+
+

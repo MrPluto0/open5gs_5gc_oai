@@ -1,0 +1,25 @@
+version: '3'
+services:
+  ue:
+    image: oaisoftwarealliance/oai-nr-ue:develop
+    privileged: true
+    environment:
+      USE_ADDITIONAL_OPTIONS: -r 106 --numerology 1 --band 78 -C 3619200000 --sa --rfsim --log_config.global_log_options level,nocolor,time
+    volumes:
+      - ./ue.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+    healthcheck:
+      test: /bin/bash -c "pgrep nr-uesoftmodem"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      oai_net:
+        ipv4_address: 192.168.71.150
+
+networks:
+  oai_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.71.128/26"
